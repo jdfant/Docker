@@ -1,7 +1,7 @@
-# Jenkins images does all the hard work
+# Jenkins image does all the hard work
 # This just adds what I want to Jenkins
 
-# I want non-lts excitement :)
+# Want LTS? Append ':lts' to docker image below
 FROM jenkins/jenkins
 
 USER 0
