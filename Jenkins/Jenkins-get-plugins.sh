@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/bin/bash
 #
 # Retrieve and list (write to file) all installed plugins on remote Jenkins server
 #
