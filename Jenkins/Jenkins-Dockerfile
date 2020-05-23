@@ -6,7 +6,9 @@ LABEL Version="2.237" \
       Maintainer="JD" \
       Build_Date="2020-05-21"
 
-ENV PLUGINS_FORCE_UPGRADE=true
+ENV TRY_UPGRADE_IF_NO_MARKER=true
+    # Make certain you know how this works.
+    # PLUGINS_FORCE_UPGRADE=true
 
 USER 0
 
