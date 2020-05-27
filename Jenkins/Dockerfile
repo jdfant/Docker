@@ -1,10 +1,10 @@
 # Want LTS? Append ':lts' to docker image below
 FROM jenkins/jenkins
 
-LABEL Version="2.237" \
+LABEL Version="2.238" \
       Description="Jenkins image with additional tools" \
       Maintainer="JD" \
-      Build_Date="2020-05-21"
+      Build_Date="2020-05-27"
 
 ENV TRY_UPGRADE_IF_NO_MARKER=true
     # Make certain you know how this works.
