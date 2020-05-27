@@ -2,7 +2,7 @@ FROM registry.home.lan/centos-base:8.1.1911
 LABEL OpenJDK_Version="1:11.0.7.10-1.el8_1.x86_64"
 LABEL org.label-schema.build-date="2020-05-27"
 LABEL Build_Date="2020-05-27"
-LABEL Name="CentOS 8 Base Image with OpenJDK"
+LABEL Name="JD's CentOS 8 Base Image with OpenJDK"
 LABEL Maintainer="JD Fant"
 
 USER 0

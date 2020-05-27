@@ -2,7 +2,7 @@ FROM centos:8
 LABEL CentOS_Version="8.1.1911"
 LABEL org.label-schema.build-date="2020-05-27"
 LABEL Build_Date="2019-05-27"
-LABEL Name="CentOS 8 Base Image"
+LABEL Name="JD's CentOS 8 Base Image"
 LABEL Maintainer="JD Fant"
 
 ENV PRIVATE_CERT_URL https://repo.home.lan/RootCAs
