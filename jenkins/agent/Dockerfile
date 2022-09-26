@@ -95,7 +95,7 @@ RUN apt-get -qq update --no-install-recommends && \
 
 # AWS CLI
 # hadolint ignore=DL3013
-RUN pip3 install --no-cache-dir awscli
+RUN pip3 install --no-cache-dir awscliv2
 
 # Docker Compose
 RUN curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
