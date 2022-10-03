@@ -8,10 +8,10 @@ LABEL version="4.13.3-1-jdk11" \
 USER root
 
 # Variable Definitions for Version Tagging
-ENV TERRAFORM_VERSION=1.3.0 \
+ENV TERRAFORM_VERSION=1.3.1 \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 \
     DEBIAN_FRONTEND=noninteractive \
-    COMPOSE_VERSION=2.11.1
+    COMPOSE_VERSION=v2.11.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
