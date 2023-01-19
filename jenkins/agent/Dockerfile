@@ -1,17 +1,17 @@
 FROM jenkins/inbound-agent:4.13.3-1-jdk11
 
 LABEL version="4.13.3-1-jdk11" \
-      description="Jenkins JDK11 Agent image" \
+      description="JD's Jenkins JDK11 Agent image" \
       maintainer="jd@jdfant.com" \
-      build-date="2022-09-25"
+      build_date="2023-01-19"
 
 USER root
 
 # Variable Definitions for Version Tagging
-ENV TERRAFORM_VERSION=1.3.1 \
+ENV TERRAFORM_VERSION=1.3.7 \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 \
     DEBIAN_FRONTEND=noninteractive \
-    COMPOSE_VERSION=v2.11.1
+    COMPOSE_VERSION=v2.15.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
