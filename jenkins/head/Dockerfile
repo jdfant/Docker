@@ -1,9 +1,9 @@
-FROM jenkins/jenkins:2.361.1-lts-jdk11
+FROM jenkins/jenkins:2.375.2-lts-jdk11
 
-LABEL version="2.361.1-lts-jdk11" \
+LABEL version="2.375.2-lts-jdk11" \
       description="Jenkins LTS image" \
       maintainer="jd@jdfant.com" \
-      build-date="2022-09-12"
+      build-date="2023-01-19"
 
 USER root
 
