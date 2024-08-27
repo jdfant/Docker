@@ -1,9 +1,9 @@
-FROM jenkins/jenkins:2.473-jdk21
+FROM jenkins/jenkins:2.474-jdk21
 
-LABEL version="2.473-jdk21" \
+LABEL version="2.474-jdk21" \
       description="Jenkins LTS-JDK21 image" \
       maintainer="jd@jdfant.com" \
-      build-date="2024-08-26"
+      build-date="2024-08-27"
 
 USER root
 
