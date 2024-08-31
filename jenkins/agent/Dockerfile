@@ -3,7 +3,7 @@ FROM jenkins/inbound-agent:3261.v9c670a_4748a_9-2-jdk21
 LABEL version="3261.v9c670a_4748a_9-2-jdk21" \
       description="JD's Jenkins JDK21 Agent image" \
       maintainer="jd@jdfant.com" \
-      build_date="2024-08-26"
+      build-date="2024-08-26"
 
 USER root
 
@@ -95,7 +95,6 @@ RUN apt-get -qq update --no-install-recommends && \
     echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers.d/jenkins
 
 # AWS CLI
-# hadolint ignore=DL3013
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install && \
@@ -116,9 +115,9 @@ RUN git clone https://github.com/tfutils/tfenv.git && \
 #OpenTofu (tenv)
 RUN LATEST_VERSION=$(curl https://api.github.com/repos/sigstore/cosign/releases/latest | jq -r .tag_name | tr -d "v") && \
     curl -O -L "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION}_amd64.deb" && \
-    dpkg -i cosign_${LATEST_VERSION}_amd64.deb && rm -f cosign_${LATEST_VERSION}_amd64.deb && \
-    curl -O -L "https://github.com/tofuutils/tenv/releases/download/v${TENV_VERSION}/tenv_v${TENV_VERSION}_amd64.deb" && \
-    dpkg -i tenv_v${TENV_VERSION}_amd64.deb && rm -f tenv_v${TENV_VERSION}_amd64.deb \
-    tenv tofu install ${OPENTOFU_VERSION}
+    dpkg -i cosign_"${LATEST_VERSION}"_amd64.deb && rm -f cosign_"${LATEST_VERSION}"_amd64.deb && \
+    curl -O -L https://github.com/tofuutils/tenv/releases/download/v"${TENV_VERSION}"/tenv_v"${TENV_VERSION}"_amd64.deb && \
+    dpkg -i tenv_v"${TENV_VERSION}"_amd64.deb && rm -f tenv_v"${TENV_VERSION}"_amd64.deb \
+    tenv tofu install "${OPENTOFU_VERSION}"
 
 USER jenkins
