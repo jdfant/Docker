@@ -1,0 +1,75 @@
+def awsCredentials = [[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'jenkins', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]
+def gitCredentials ='github-token'
+
+pipeline {
+  agent {
+    node {
+        label "agent1"
+    }
+  }
+
+  options {
+    timeout(time: 60, unit: 'MINUTES')
+    withCredentials(awsCredentials)
+  }
+
+  stages {
+    stage('Cleanup Workspace') {
+      steps {
+          cleanWs()
+          sh """
+          echo "Cleaned Up Workspace For Project"
+          """
+        }
+    }
+
+    stage('Code Checkout') {
+      steps {
+          checkout([
+              $class: 'GitSCM',
+              branches: [[name: '*/main']],
+              userRemoteConfigs: [[credentialsId: gitCredentials, url: 'http://github.com/jdfant/lambda-layer-builder']]
+          ])
+       }
+    }
+
+    stage('Copy Common') {
+      steps {
+          sh '''#!/bin/bash
+          mkdir -p ${WORKSPACE}/GIT
+          cp -Rv common ${WORKSPACE}/GIT/
+          '''
+      }
+    }
+
+    stage('Build Lambda Layer') {
+      steps {
+          sh '''#!/bin/bash
+            mkdir -p ${WORKSPACE}/VIRTUALENV
+            cp requirements.txt ${WORKSPACE}/VIRTUALENV || exit
+            cd ${WORKSPACE}/VIRTUALENV || exit
+            python3 -m venv $(pwd)
+            source bin/activate
+            pip3 install --no-warn-script-location --no-cache-dir -U "$(grep pip requirements.txt)" 2>/dev/null
+            pip3 install --no-warn-script-location --no-cache-dir -U "$(grep setup requirements.txt)" 2>/dev/null
+            pip3 install --no-warn-script-location --no-cache-dir -U wheel 2>/dev/null
+            pip3 install --no-warn-script-location --no-cache-dir -r requirements.txt --prefix ${WORKSPACE}/VIRTUALENV/
+
+            deactivate
+
+            cd ${WORKSPACE}/VIRTUALENV/lib/python3.9/site-packages || exit
+            rm -f ${WORKSPACE}/VIRTUALENV/requirements.txt
+            zip -r ${WORKSPACE}/lambda_layer_"$(date '+%Y-%m-%d')".zip ./*
+            zip -T ${WORKSPACE}/lambda_layer_"$(date '+%Y-%m-%d')".zip
+          '''
+        }
+      }
+    }
+
+// https://www.jenkins.io/doc/pipeline/steps/core/#code-archiveartifacts-code-archive-the-artifacts
+    post {
+        success {
+            archiveArtifacts artifacts: '*.zip'
+        }
+    }
+}
