@@ -1,8 +1,10 @@
 FROM python:3.12
 
-LABEL name="Lambda Layer Builder"
-LABEL build_date="2024-09-07"
-LABEL version="0.2"
+LABEL name="lambda-layer-builder" \
+      lambda-layer-builder-version="0.2" \
+      description="JD's Lambda Layer Builder" \
+      maintainer="jd@jdfant.com" \
+      build-date="2024-09-07"
 
 ENV BUILD_DIR=/Lambda_Layer
 
