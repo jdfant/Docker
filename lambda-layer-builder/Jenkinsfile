@@ -28,7 +28,7 @@ pipeline {
           checkout([
               $class: 'GitSCM',
               branches: [[name: '*/main']],
-              userRemoteConfigs: [[credentialsId: gitCredentials, url: 'http://github.com/jdfant/lambda-layer-builder']]
+              userRemoteConfigs: [[credentialsId: gitCredentials, url: 'http://gitlab.home.lan/JD/lambda-layer-builder']]
           ])
        }
     }
