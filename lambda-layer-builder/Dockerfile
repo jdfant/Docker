@@ -1,6 +1,6 @@
 FROM python:3.12
 
-LABEL name="lambda-layer-builder" \
+LABEL name="Lambda Layer Builder" \
       lambda-layer-builder-version="0.2" \
       description="JD's Lambda Layer Builder" \
       maintainer="jd@jdfant.com" \
