@@ -1,19 +1,19 @@
-FROM jenkins/inbound-agent:3261.v9c670a_4748a_9-2-jdk21
+FROM jenkins/inbound-agent:3283.v92c105e0f819-1-jdk21
 
-LABEL version="3261.v9c670a_4748a_9-2-jdk21" \
+LABEL version="3283.v92c105e0f819-1-jdk21" \
       description="JD's Jenkins JDK21 Agent image" \
       maintainer="jd@jdfant.com" \
-      build-date="2024-08-26"
+      build-date="2024-11-19"
 
 USER root
 
 # Variable Definitions for Version Tagging
-ENV OPENTOFU_VERSION=1.8.1 \
-    TERRAFORM_VERSION=1.9.5 \
-    TENV_VERSION=3.1.0 \
+ENV OPENTOFU_VERSION=1.8.5 \
+    TERRAFORM_VERSION=1.9.8 \
+    TENV_VERSION=3.2.10 \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
     DEBIAN_FRONTEND=noninteractive \
-    COMPOSE_VERSION=v2.29.2
+    COMPOSE_VERSION=v2.30.3
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -99,7 +99,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     unzip awscliv2.zip && \
     ./aws/install && \
     aws --version && \
-    rm -rf aws
+    rm -rf aws awscliv2.zip
 
 # Docker Compose
 RUN curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
@@ -117,7 +117,8 @@ RUN LATEST_VERSION=$(curl https://api.github.com/repos/sigstore/cosign/releases/
     curl -O -L "https://github.com/sigstore/cosign/releases/latest/download/cosign_${LATEST_VERSION}_amd64.deb" && \
     dpkg -i cosign_"${LATEST_VERSION}"_amd64.deb && rm -f cosign_"${LATEST_VERSION}"_amd64.deb && \
     curl -O -L https://github.com/tofuutils/tenv/releases/download/v"${TENV_VERSION}"/tenv_v"${TENV_VERSION}"_amd64.deb && \
-    dpkg -i tenv_v"${TENV_VERSION}"_amd64.deb && rm -f tenv_v"${TENV_VERSION}"_amd64.deb \
+    dpkg -i tenv_v"${TENV_VERSION}"_amd64.deb && \
+    rm -f tenv_v"${TENV_VERSION}"_amd64.deb \
     tenv tofu install "${OPENTOFU_VERSION}"
 
 USER jenkins
