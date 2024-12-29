@@ -1,19 +1,19 @@
-FROM jenkins/inbound-agent:3283.v92c105e0f819-1-jdk21
+FROM jenkins/inbound-agent:3283.v92c105e0f819-4-jdk21
 
-LABEL version="3283.v92c105e0f819-1-jdk21" \
+LABEL version="3283.v92c105e0f819-4-jdk21" \
       description="JD's Jenkins JDK21 Agent image" \
       maintainer="jd@jdfant.com" \
-      build-date="2024-11-19"
+      build-date="2024-12-28"
 
 USER root
 
 # Variable Definitions for Version Tagging
-ENV OPENTOFU_VERSION=1.8.5 \
-    TERRAFORM_VERSION=1.9.8 \
-    TENV_VERSION=3.2.10 \
+ENV OPENTOFU_VERSION=1.8.8 \
+    TERRAFORM_VERSION=1.10.3 \
+    TENV_VERSION=4.1.0 \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
     DEBIAN_FRONTEND=noninteractive \
-    COMPOSE_VERSION=v2.30.3
+    COMPOSE_VERSION=v2.32.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -95,7 +95,7 @@ RUN apt-get -qq update --no-install-recommends && \
     echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers.d/jenkins
 
 # AWS CLI
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+RUN curl -L "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
     unzip awscliv2.zip && \
     ./aws/install && \
     aws --version && \
