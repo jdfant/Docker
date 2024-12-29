@@ -20,7 +20,6 @@ RUN apt-get -qq update && \
 # Install Jenkins Plugins
 COPY Files/jenkins_plugins /usr/share/jenkins/ref/jenkins_plugins.txt
 
-RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/jenkins_plugins.txt && \
-    echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/jenkins_plugins.txt
 
 USER jenkins
