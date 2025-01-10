@@ -1,19 +1,19 @@
-FROM jenkins/inbound-agent:3283.v92c105e0f819-4-jdk21
+FROM jenkins/inbound-agent:3283.v92c105e0f819-5-jdk21
 
-LABEL version="3283.v92c105e0f819-4-jdk21" \
+LABEL version="3283.v92c105e0f819-5-jdk21" \
       description="JD's Jenkins JDK21 Agent image" \
       maintainer="jd@jdfant.com" \
-      build-date="2024-12-28"
+      build-date="2024-01-10"
 
 USER root
 
 # Variable Definitions for Version Tagging
-ENV OPENTOFU_VERSION=1.8.8 \
-    TERRAFORM_VERSION=1.10.3 \
+ENV OPENTOFU_VERSION=1.9.0 \
+    TERRAFORM_VERSION=1.10.4 \
     TENV_VERSION=4.1.0 \
+    DOCKER_COMPOSE_VERSION=v2.32.2 \
     APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn \
-    DEBIAN_FRONTEND=noninteractive \
-    COMPOSE_VERSION=v2.32.0
+    DEBIAN_FRONTEND=noninteractive
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -102,7 +102,7 @@ RUN curl -L "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscl
     rm -rf aws awscliv2.zip
 
 # Docker Compose
-RUN curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
+RUN curl -L https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
     docker-compose version
 
